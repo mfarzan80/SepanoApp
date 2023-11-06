@@ -1,0 +1,6 @@
+<resources>
+	<string name="app_name">SepanoApp</string>
+	<string name="title_bluetooth">Bluetooth</string>
+	<string name="title_calculator">Calculator</string>
+	<string name="title_memory">Memory</string>
+</resources>
