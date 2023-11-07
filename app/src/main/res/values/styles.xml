@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<!-- Base application theme. -->
+	<style name="TextAppearance.Material3.Error" parent="TextAppearance.Material3.BodyMedium">
+		<item name="android:textColor">?attr/colorError</item>
+	</style>
+
+	<style name="TextAppearance.Material3.Hint" parent="TextAppearance.Material3.BodySmall">
+		<item name="android:alpha">.8</item>
+	</style>
+</resources>

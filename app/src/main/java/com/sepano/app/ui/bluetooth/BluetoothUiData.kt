@@ -1,8 +1,8 @@
 package com.sepano.app.ui.bluetooth
 
-import com.sepano.app.model.BluetoothDevice
+import com.sepano.app.model.BluetoothData
 
 data class BluetoothUiData(
-    var scannedDevices: List<BluetoothDevice> = emptyList(),
-    var pairedDevices: List<BluetoothDevice> = emptyList(),
+    var scannedDevices: List<BluetoothData> = emptyList(),
+    var pairedDevices: List<BluetoothData> = emptyList(),
 )

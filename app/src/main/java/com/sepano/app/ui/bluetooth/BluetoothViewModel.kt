@@ -1,5 +1,6 @@
 package com.sepano.app.ui.bluetooth
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.sepano.app.data.ApiStatus
 import com.sepano.app.exception.BluetoothException
@@ -32,6 +33,7 @@ class BluetoothViewModel @Inject constructor(private val bluetoothController: Bl
         bluetoothController.pairedDevices,
         _bluetoothDevices
     ) { scannedDevices, pairedDevices, bluetoothUiData ->
+        Log.d("Bluetooth", "BluetoothViewModel: Combined $scannedDevices")
         bluetoothUiData.copy(
             scannedDevices = scannedDevices,
             pairedDevices = pairedDevices
@@ -45,6 +47,7 @@ class BluetoothViewModel @Inject constructor(private val bluetoothController: Bl
             bluetoothController.startScan()
             startScanningTimer()
         } catch (e: BluetoothException) {
+            Log.e("Bluetooth", "BluetoothViewModel: startScan: " , e)
             error(e)
         }
     }

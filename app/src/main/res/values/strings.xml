@@ -3,4 +3,23 @@
 	<string name="title_bluetooth">Bluetooth</string>
 	<string name="title_calculator">Calculator</string>
 	<string name="title_memory">Memory</string>
+	<string name="bluetooth_off_title">Bluetooth is Off</string>
+	<string name="bluetooth_off_text">
+		You must turn on Bluetooth to use this feature.
+	</string>
+
+	<string name="bluetooth_not_support_title">Bluetooth is not supported</string>
+	<string name="bluetooth_not_support_text">
+		Your device does not support Bluetooth. You can not use this feature.
+	</string>
+	<string name="bluetooth_permission_title">Permission Denied</string>
+	<string name="bluetooth_permission_text">
+		Bluetooth permission is denied\nWe must have this permission to use this feature.
+	</string>
+	<string name="grant_permission">Allow</string>
+	<string name="open_settings">Open Settings</string>
+	<string name="turn_on_bluetooth">Turn On Bluetooth</string>
+	<string name="scanned_devices">Scanned Devices</string>
+	<string name="bluetooth">Bluetooth</string>
+	<string name="paired_devices">Paired Devices</string>
 </resources>

@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.content.IntentCompat
-import com.sepano.app.model.BluetoothDevice
+import com.sepano.app.model.BluetoothData
 
-class BluetoothReceiver(private val onReceiveDevice : (BluetoothDevice) -> Unit) : BroadcastReceiver(){
+class BluetoothReceiver(private val onReceiveDevice : (BluetoothData) -> Unit) : BroadcastReceiver(){
 
     @SuppressLint("MissingPermission") // checkForBluetoothPermissions check permission
     override fun onReceive(context: Context, intent: Intent) {
@@ -23,10 +23,10 @@ class BluetoothReceiver(private val onReceiveDevice : (BluetoothDevice) -> Unit)
                 if (isAllBluetoothPermissionGranted(context)) {
                     Log.d("Bluetooth", "onReceive: isAllBluetoothPermissionGranted true")
                     if(device != null && device.name != null) {
-                        val bluetoothDevice = BluetoothDevice(device.name, device.address)
+                        val bluetoothDevice = BluetoothData(device.name, device.bluetoothClass)
                         onReceiveDevice(bluetoothDevice)
                     }
-                    Log.d("Bluetooth", "onReceive: ${device?.name}")
+                    Log.d("Bluetooth", "onReceive: ${device?.name} ${device?.bluetoothClass?.deviceClass}")
                 } else {
                     Log.d("Bluetooth", "onReceive: user permission denied")
                 }

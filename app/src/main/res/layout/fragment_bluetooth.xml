@@ -1,22 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".ui.bluetooth.BluetoothFragment">
 
-	<TextView
-		android:id="@+id/text_home"
+	<LinearLayout
+		android:id="@+id/ll_permission_error_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
-		android:textAlignment="center"
-		android:textSize="20sp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+		android:layout_gravity="center"
+		android:layout_marginBottom="@dimen/space_very_large"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<androidx.appcompat.widget.AppCompatImageView
+			android:layout_width="@dimen/size_icon_large"
+			android:layout_height="@dimen/size_icon_large"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_forbidden_bold"
+			android:tint="?attr/colorError" />
+
+		<com.google.android.material.textview.MaterialTextView
+			style="@style/TextAppearance.Material3.TitleLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:layout_marginTop="@dimen/space_large"
+			android:text="@string/bluetooth_permission_title"
+			android:textAlignment="center"
+			android:textColor="?attr/colorError" />
+
+		<com.google.android.material.textview.MaterialTextView
+			style="@style/TextAppearance.Material3.BodyMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/space_small"
+			android:text="@string/bluetooth_permission_text"
+			android:textAlignment="center" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/space_medium"
+			android:orientation="horizontal">
+
+			<com.google.android.material.button.MaterialButton
+				style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/space_small"
+				android:layout_weight="1"
+				android:text="@string/open_settings">
+
+			</com.google.android.material.button.MaterialButton>
+
+			<com.google.android.material.button.MaterialButton
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/space_small"
+				android:layout_weight="1"
+				android:text="@string/grant_permission">
+
+			</com.google.android.material.button.MaterialButton>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+
+	<LinearLayout
+		android:id="@+id/ll_bluetooth_off_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginHorizontal="@dimen/space_medium"
+		android:layout_marginBottom="@dimen/space_very_large"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<androidx.appcompat.widget.AppCompatImageView
+			android:layout_width="@dimen/size_icon_large"
+			android:layout_height="@dimen/size_icon_large"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_bluetooth"
+			android:tint="?attr/colorError" />
+
+		<com.google.android.material.textview.MaterialTextView
+			android:id="@+id/tv_bluetooth_off_title"
+			style="@style/TextAppearance.Material3.TitleLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:layout_marginTop="@dimen/space_large"
+			android:text="@string/bluetooth_off_title"
+			android:textAlignment="center"
+			android:textColor="?attr/colorError" />
+
+		<com.google.android.material.textview.MaterialTextView
+			android:id="@+id/tv_bluetooth_off_text"
+			style="@style/TextAppearance.Material3.BodyMedium"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/space_small"
+			android:text="@string/bluetooth_off_text"
+			android:textAlignment="center" />
+
+
+		<com.google.android.material.button.MaterialButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/space_medium"
+			android:layout_marginEnd="@dimen/space_small"
+			android:text="@string/turn_on_bluetooth">
+
+		</com.google.android.material.button.MaterialButton>
+
+
+	</LinearLayout>
+
+	<androidx.core.widget.NestedScrollView
+		android:id="@+id/nsv_scanned_devices"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+			android:layout_marginVertical="@dimen/activity_vertical_margin"
+			android:orientation="vertical">
+
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+
+				android:orientation="horizontal">
+
+				<androidx.appcompat.widget.AppCompatTextView
+					style="@style/TextAppearance.Material3.TitleLarge"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:text="@string/scanned_devices" />
+
+
+
+				<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/iv_refresh"
+					android:layout_width="@dimen/size_icon_medium"
+					android:layout_height="@dimen/size_icon_medium"
+					android:background="@drawable/shape_circle"
+					android:padding="@dimen/icon_padding"
+					android:src="@drawable/ic_refresh"
+					android:tint="?attr/colorOnBackground" />
+
+
+			</LinearLayout>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rv_scanned_bluetooth_devices"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:descendantFocusability="blocksDescendants"
+				android:nestedScrollingEnabled="false"
+				android:layout_marginTop="@dimen/space_small"
+				 />
+
+
+			<androidx.appcompat.widget.AppCompatTextView
+				style="@style/TextAppearance.Material3.TitleLarge"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/space_large"
+				android:text="@string/paired_devices" />
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/rv_paired_bluetooth_devices"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:descendantFocusability="blocksDescendants"
+				android:nestedScrollingEnabled="false"
+				android:layout_marginTop="@dimen/space_small"
+				 />
+
+		</LinearLayout>
+
+	</androidx.core.widget.NestedScrollView>
+</FrameLayout>

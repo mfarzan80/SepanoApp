@@ -2,24 +2,28 @@
 	<!-- Base application theme. -->
 	<style name="Theme.SepanoApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 		<!-- Primary brand color. -->
-		<item name="colorPrimary">@color/blue</item>
-		<item name="colorPrimaryVariant">@color/blue</item>
+		<item name="colorPrimary">@color/cyan700</item>
+		<item name="colorPrimaryVariant">@color/cyan700</item>
 		<item name="colorOnPrimary">@color/white</item>
 		<!-- Secondary brand color. -->
-		<item name="colorSecondary">@color/orange</item>
-		<item name="colorSecondaryVariant">@color/orange</item>
+		<item name="colorSecondary">@color/red700</item>
+		<item name="colorSecondaryVariant">@color/red700</item>
 		<item name="colorOnSecondary">@color/white</item>
 		<!-- Status bar color. -->
 		<item name="android:statusBarColor">@color/light_gray</item>
 		<item name="android:windowLightStatusBar">true</item>
 		<!-- Customize your theme here. -->
+
+		<!-- Color -->
 		<item name="colorOnBackground">@color/dark_blue_900</item>
 		<item name="colorOnSurface">@color/dark_blue_900</item>
-		<item name="colorError">@color/orange</item>
+		<item name="colorError">@color/red700</item>
 		<item name="colorOnError">@color/white</item>
 		<item name="android:windowBackground">@color/light_gray</item>
 		<item name="colorContainer">@color/white</item>
 		<item name="colorSurface">@color/white</item>
+
+
 
 	</style>
 </resources>

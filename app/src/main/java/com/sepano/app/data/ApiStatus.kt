@@ -4,7 +4,6 @@ enum class ApiStatus {
     SUCCESS,
     ERROR,
     LOADING,
-    EMPTY;
 
 
 }

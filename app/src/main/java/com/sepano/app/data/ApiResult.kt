@@ -8,10 +8,10 @@ sealed class ApiResult<out T>(val status: ApiStatus, val data: T?, var exception
         exception = null
     )
 
-    data class Error(val _message: Exception) : ApiResult<Nothing>(
+    data class Error(val _exception: Exception) : ApiResult<Nothing>(
         status = ApiStatus.ERROR,
         data = null,
-        exception = _message
+        exception = _exception
     )
 
     class Loading() : ApiResult<Nothing>(
@@ -20,18 +20,12 @@ sealed class ApiResult<out T>(val status: ApiStatus, val data: T?, var exception
         exception = null
     )
 
-    class Empty() : ApiResult<Nothing>(
-        status = ApiStatus.EMPTY,
-        data = null,
-        exception = null
-    )
 
     override fun toString(): String {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[message=$exception]"
             is Loading -> "Loading"
-            is Empty -> "Empty"
         }
     }
 

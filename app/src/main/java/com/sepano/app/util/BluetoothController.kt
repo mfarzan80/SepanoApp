@@ -8,7 +8,7 @@ import android.util.Log
 import com.sepano.app.exception.BluetoothNotEnabledException
 import com.sepano.app.exception.BluetoothNotSupportedException
 import com.sepano.app.exception.BluetoothPermissionException
-import com.sepano.app.model.BluetoothDevice
+import com.sepano.app.model.BluetoothData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,12 +32,12 @@ class BluetoothController(private val context: Context) {
         }
     };
 
-    private val _scannedDevices = MutableStateFlow<List<BluetoothDevice>>(emptyList())
-    val scannedDevices: StateFlow<List<BluetoothDevice>>
+    private val _scannedDevices = MutableStateFlow<List<BluetoothData>>(emptyList())
+    val scannedDevices: StateFlow<List<BluetoothData>>
         get() = _scannedDevices.asStateFlow()
 
-    private val _pairedDevices = MutableStateFlow<List<BluetoothDevice>>(emptyList())
-    val pairedDevices: StateFlow<List<BluetoothDevice>>
+    private val _pairedDevices = MutableStateFlow<List<BluetoothData>>(emptyList())
+    val pairedDevices: StateFlow<List<BluetoothData>>
         get() = _pairedDevices.asStateFlow()
 
     fun startScan() {
@@ -59,13 +59,16 @@ class BluetoothController(private val context: Context) {
     }
 
     fun release() {
-        context.unregisterReceiver(bluetoothReceiver)
+        if (bluetoothReceiver.isOrderedBroadcast) {
+            context.unregisterReceiver(bluetoothReceiver)
+        }
+
     }
 
     private fun updatePairedDevices() {
 
         bluetoothAdapter?.bondedDevices?.map { device ->
-            BluetoothDevice(device.name, device.address)
+            BluetoothData(device.name, device.bluetoothClass)
         }?.also { newDevices ->
             _pairedDevices.update { newDevices }
         }
@@ -73,16 +76,15 @@ class BluetoothController(private val context: Context) {
     }
 
     private fun assertBluetoothCanScan() {
-        if(bluetoothAdapter != null)
+        if (bluetoothAdapter == null)
             throw BluetoothNotSupportedException()
-        if(!bluetoothAdapter!!.isEnabled)
+        if (!bluetoothAdapter!!.isEnabled)
             throw BluetoothNotEnabledException()
 
         val notGrantedPermission = getNotGrantedBluetoothPermissions(context)
-        if(notGrantedPermission.isNotEmpty())
+        if (notGrantedPermission.isNotEmpty())
             throw BluetoothPermissionException(notGrantedPermission.toList())
     }
-
 
 
 }

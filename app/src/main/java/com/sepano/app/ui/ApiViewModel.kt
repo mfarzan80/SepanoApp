@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import java.lang.Exception
 
 open class ApiViewModel<T> : ViewModel() {
-    val state: MutableStateFlow<ApiResult<T>> = MutableStateFlow(ApiResult.Empty())
+    val state: MutableStateFlow<ApiResult<T>> = MutableStateFlow(ApiResult.Success(null))
 
 
     fun startLoading() {
@@ -18,9 +18,6 @@ open class ApiViewModel<T> : ViewModel() {
         state.value = ApiResult.Loading()
     }
 
-    fun empty() {
-        state.value = ApiResult.Empty()
-    }
 
     fun error(exception: Exception) {
 
