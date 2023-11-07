@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="cyan700">#FF1E8991</color>
+	<color name="cyan500">#FF00CFDE</color>
+	<color name="orange700">#FFFF8800</color>
+	<color name="orange500">#FFFF9924</color>
 	<color name="red700">#FFD61E1E</color>
 	<color name="red500">#FFFF3B3B</color>
-	<color name="cyan500">#FF00CFDE</color>
 	<color name="light_gray">#FFF9F9F9</color>
 	<color name="white">#FFFFFFFF</color>
 	<color name="dark_blue_500">#FF1F252F</color>
 	<color name="dark_blue_700">#FF171B22</color>
-	<color name="dark_blue_900">#FF171B22</color>
 </resources>
