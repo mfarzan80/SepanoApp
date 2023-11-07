@@ -11,10 +11,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.sepano.app.databinding.ActivityMainBinding
 import com.sepano.app.ui.bluetooth.BluetoothFragment
+import com.sepano.app.ui.bluetooth.BluetoothViewModel
 import com.sepano.app.ui.calculator.CalculatorFragment
 import com.sepano.app.ui.memory.MemoryFragment
 import com.sepano.app.util.getNotGrantedBluetoothPermissions
@@ -24,9 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListener{
+class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
-    private val bluetoothFragment = BluetoothFragment()
+    private lateinit var bluetoothViewModel: BluetoothViewModel
 
     companion object {
 
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        bluetoothViewModel = ViewModelProvider(this)[BluetoothViewModel::class.java]
+
         registerActivityResult()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -51,8 +55,6 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
 
     }
 
-
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
         if (requestCode == REQUEST_BT_PERMISSION) {
             val notGrantedPermissions = getNotGrantedBluetoothPermissions(this)
             if (notGrantedPermissions.isEmpty()) {
-                prepareBluetooth()
+                bluetoothViewModel.startScan()
 
             } else {
                 Log.d(
@@ -77,38 +79,22 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
         startForResult = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
+
             if (result.resultCode == Activity.RESULT_OK) {
-                if (result.data?.action == BluetoothAdapter.ACTION_REQUEST_ENABLE) {
-                    prepareBluetooth()
-                }
+                bluetoothViewModel.startScan()
             }
         }
     }
 
-    private fun prepareBluetooth() {
-        if (!isAllBluetoothPermissionGranted(this))
-            requestForBluetoothPermission()
-        else if (!isBluetoothOn(this))
-            turnOnBluetooth()
-        else
-            restartBluetoothController()
-    }
 
-
-    private fun requestForBluetoothPermission() {
+    fun requestForBluetoothPermission() {
         getNotGrantedBluetoothPermissions(this).let {
             if (it.isNotEmpty())
                 requestPermissions(it, REQUEST_BT_PERMISSION)
         }
     }
 
-    private fun restartBluetoothController() {
-        if (isAllBluetoothPermissionGranted(this) && isBluetoothOn(this)) {
-            bluetoothFragment.startScan()
-        }
-    }
-
-    private fun turnOnBluetooth() {
+    fun turnOnBluetooth() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         startForResult.launch(enableBtIntent)
     }
@@ -119,15 +105,16 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
     }
 
     private fun displayFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_activity_main, fragment).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, fragment).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment: Fragment = when (item.itemId) {
-            R.id.navigation_bluetooth -> bluetoothFragment
+            R.id.navigation_bluetooth -> BluetoothFragment()
             R.id.navigation_calculator -> CalculatorFragment()
             R.id.navigation_memory -> MemoryFragment()
-            else -> bluetoothFragment
+            else -> BluetoothFragment()
         }
         displayFragment(fragment)
         return true

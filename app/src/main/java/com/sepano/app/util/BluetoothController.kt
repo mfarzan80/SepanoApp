@@ -78,12 +78,14 @@ class BluetoothController(private val context: Context) {
     private fun assertBluetoothCanScan() {
         if (bluetoothAdapter == null)
             throw BluetoothNotSupportedException()
-        if (!bluetoothAdapter!!.isEnabled)
-            throw BluetoothNotEnabledException()
 
         val notGrantedPermission = getNotGrantedBluetoothPermissions(context)
         if (notGrantedPermission.isNotEmpty())
             throw BluetoothPermissionException(notGrantedPermission.toList())
+
+        if (!bluetoothAdapter!!.isEnabled)
+            throw BluetoothNotEnabledException()
+
     }
 
 

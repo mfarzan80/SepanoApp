@@ -26,8 +26,7 @@
 			style="@style/TextAppearance.Material3.TitleLarge"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-
-			android:layout_marginTop="@dimen/space_large"
+			android:layout_marginTop="@dimen/space_medium"
 			android:text="@string/bluetooth_permission_title"
 			android:textAlignment="center"
 			android:textColor="?attr/colorError" />
@@ -44,19 +43,21 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/space_medium"
+			android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
 			android:orientation="horizontal">
 
 			<com.google.android.material.button.MaterialButton
+				android:id="@+id/btn_open_settings"
 				style="@style/Widget.MaterialComponents.Button.OutlinedButton"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/space_small"
 				android:layout_weight="1"
 				android:text="@string/open_settings">
 
 			</com.google.android.material.button.MaterialButton>
 
 			<com.google.android.material.button.MaterialButton
+				android:id="@+id/btn_grant_permission"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/space_small"
@@ -110,10 +111,10 @@
 
 
 		<com.google.android.material.button.MaterialButton
+			android:id="@+id/btn_turn_on_bluetooth"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/space_medium"
-			android:layout_marginEnd="@dimen/space_small"
 			android:text="@string/turn_on_bluetooth">
 
 		</com.google.android.material.button.MaterialButton>
@@ -138,7 +139,6 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:gravity="center_vertical"
-
 				android:orientation="horizontal">
 
 				<androidx.appcompat.widget.AppCompatTextView

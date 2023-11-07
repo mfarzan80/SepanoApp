@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-
+import com.sepano.app.MainActivity
 import com.sepano.app.R
 import com.sepano.app.data.ApiResult
 import com.sepano.app.data.ApiStatus
@@ -18,6 +20,7 @@ import com.sepano.app.databinding.FragmentBluetoothBinding
 import com.sepano.app.exception.BluetoothNotEnabledException
 import com.sepano.app.exception.BluetoothNotSupportedException
 import com.sepano.app.exception.BluetoothPermissionException
+import com.sepano.app.util.startInstalledAppDetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,8 +33,9 @@ class BluetoothFragment() : Fragment() {
 
     private val binding get() = _binding!!
     private lateinit var context: Context
+    private val mainActivity get() = requireActivity() as MainActivity
 
-    private val viewModel by viewModels<BluetoothViewModel>()
+    private val viewModel: BluetoothViewModel by activityViewModels()
 
     private val scannedDevicesRecyclerViewAdapter = BluetoothRecyclerAdapter(listOf())
     private val pairedDevicesRecyclerViewAdapter = BluetoothRecyclerAdapter(listOf())
@@ -45,17 +49,13 @@ class BluetoothFragment() : Fragment() {
 
         _binding = FragmentBluetoothBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        context = requireContext()
+
 
         startScan()
 
         setupRecyclers()
 
-        binding.ivRefresh.setOnClickListener {
-            if (viewModel.state.value.status != ApiStatus.LOADING) {
-                startScan()
-            }
-        }
+        setClickListeners()
 
         lifecycleScope.launch {
             launch {
@@ -70,6 +70,24 @@ class BluetoothFragment() : Fragment() {
         }
 
         return root
+    }
+
+    private fun setClickListeners() {
+
+        binding.ivRefresh.setOnClickListener {
+            if (viewModel.state.value.status != ApiStatus.LOADING) {
+                startScan()
+            }
+        }
+        binding.btnTurnOnBluetooth.setOnClickListener {
+            mainActivity.turnOnBluetooth()
+        }
+        binding.btnGrantPermission.setOnClickListener {
+            mainActivity.requestForBluetoothPermission()
+        }
+        binding.btnOpenSettings.setOnClickListener {
+            startInstalledAppDetailsActivity(context)
+        }
     }
 
     private fun manageStates(state: ApiResult<Unit>) {
@@ -102,7 +120,6 @@ class BluetoothFragment() : Fragment() {
                 loadingState()
             }
 
-
         }
 
     }
@@ -128,6 +145,11 @@ class BluetoothFragment() : Fragment() {
         viewModel.startScan()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        this.context = context as MainActivity
+    }
 
     private fun permissionErrorState() {
         binding.llPermissionErrorContainer.visibility = View.VISIBLE
@@ -140,6 +162,7 @@ class BluetoothFragment() : Fragment() {
         binding.llBluetoothOffContainer.visibility = View.VISIBLE
         binding.tvBluetoothOffTitle.setText(R.string.bluetooth_off_title)
         binding.tvBluetoothOffText.setText(R.string.bluetooth_off_text)
+        binding.btnTurnOnBluetooth.visibility = View.VISIBLE
         binding.nsvScannedDevices.visibility = View.GONE
     }
 
@@ -148,6 +171,7 @@ class BluetoothFragment() : Fragment() {
         binding.llBluetoothOffContainer.visibility = View.VISIBLE
         binding.tvBluetoothOffTitle.setText(R.string.bluetooth_not_support_title)
         binding.tvBluetoothOffText.setText(R.string.bluetooth_not_support_title)
+        binding.btnTurnOnBluetooth.visibility = View.GONE
         binding.nsvScannedDevices.visibility = View.GONE
     }
 

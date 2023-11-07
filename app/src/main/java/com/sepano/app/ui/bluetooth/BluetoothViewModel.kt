@@ -52,7 +52,7 @@ class BluetoothViewModel @Inject constructor(private val bluetoothController: Bl
         }
     }
 
-    fun stopScan() {
+    private fun stopScan() {
         bluetoothController.stopScan()
         timer?.cancel()
     }
