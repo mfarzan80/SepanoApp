@@ -77,29 +77,35 @@ class CalculatorFragment : Fragment() {
         // create view of each button and add it to the grid
         for (btn in buttons) {
             val onClick: () -> Unit
-            val color: Int
+            val backColor: Int
+            val foreColor: Int
             when (btn) {
                 in '0'..'9' -> {
-                    color = getMaterialColor(context, com.google.android.material.R.attr.colorSurface)
+                    backColor = getMaterialColor(context, com.google.android.material.R.attr.colorSurface)
+                    foreColor = getMaterialColor(context, com.google.android.material.R.attr.colorOnSurface)
                     onClick = { viewModel.onDigitPressed(btn) }
                 }
 
                 CLEAR_CHAR -> {
-                    color = getMaterialColor(context, com.google.android.material.R.attr.colorError)
+                    backColor = getMaterialColor(context, com.google.android.material.R.attr.colorError)
+                    foreColor = getMaterialColor(context, com.google.android.material.R.attr.colorOnError)
                     onClick = { viewModel.onClear() }
                 }
 
                 '=' -> {
-                    color = getMaterialColor(context, com.google.android.material.R.attr.colorPrimary)
+                    backColor = getMaterialColor(context, com.google.android.material.R.attr.colorPrimary)
+                    foreColor = getMaterialColor(context, com.google.android.material.R.attr.colorOnPrimary)
                     onClick = { viewModel.onEqualsPressed() }
                 }
                 else ->{
-                    color = getMaterialColor(context, com.google.android.material.R.attr.colorSecondary)
+                    backColor = getMaterialColor(context, com.google.android.material.R.attr.colorSecondary)
+                    foreColor = getMaterialColor(context, com.google.android.material.R.attr.colorOnSecondary)
                     onClick = { viewModel.onOperatorPressed(btn)}
                 }
             }
             val buttonBinding = ViewHolderCalculatorButtonBinding.inflate(layoutInflater)
             buttonBinding.tvText.text = "$btn"
+            buttonBinding.tvText.setTextColor(foreColor)
             buttonBinding.cvButton.setOnClickListener { onClick() }
             buttonBinding.cvButton.layoutParams = GridLayout.LayoutParams(
                 GridLayout.spec(
@@ -112,7 +118,7 @@ class CalculatorFragment : Fragment() {
                 width = btnSize
                 height = btnSize
             }
-            buttonBinding.cvButton.setCardBackgroundColor(color)
+            buttonBinding.cvButton.setCardBackgroundColor(backColor)
             binding.glButtons.addView(buttonBinding.cvButton)
 
         }
