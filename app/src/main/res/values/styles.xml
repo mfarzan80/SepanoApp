@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-	<!-- Base application theme. -->
-	<style name="TextAppearance.Material3.Error" parent="TextAppearance.Material3.BodyMedium">
-		<item name="android:textColor">?attr/colorError</item>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+	<style name="PrimaryVerticalProgress">
+		<item name="progressView_autoAnimate">true</item>
+		<item name="progressView_colorBackground">?attr/colorSurface</item>
+		<item name="progressView_colorProgress">?attr/colorPrimary</item>
+		<item name="progressView_labelColorInner">?attr/colorOnPrimary</item>
+		<item name="progressView_labelColorOuter">?attr/colorOnBackground</item>
+		<item name="progressView_labelSize">18sp</item>
+		<item name="progressView_labelSpace">@dimen/space_very_small</item>
+		<item name="progressView_labelTypeface">bold</item>
+		<item name="progressView_max">100</item>
+		<item name="progressView_orientation">vertical</item>
+		<item name="progressView_radius">@dimen/small_radius</item>
 	</style>
 
-	<style name="TextAppearance.Material3.Hint" parent="TextAppearance.Material3.BodySmall">
-		<item name="android:alpha">.8</item>
+	<style name="SecondaryVerticalProgress" parent="PrimaryVerticalProgress">
+		<item name="progressView_colorProgress">?attr/colorSecondary</item>
 	</style>
+
 </resources>

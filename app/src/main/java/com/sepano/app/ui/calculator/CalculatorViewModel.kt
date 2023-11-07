@@ -3,6 +3,7 @@ package com.sepano.app.ui.calculator
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sepano.app.util.toNumString
 
 class CalculatorViewModel : ViewModel() {
     private val calculatorLogic = CalculatorLogic()
@@ -14,11 +15,12 @@ class CalculatorViewModel : ViewModel() {
     private var pendingOperation: Char? = null
 
     fun onDigitPressed(digit: Char) {
-        if (isError())
+        if (isError() || (!pendingDisplay.value.isNullOrBlank() && pendingDisplay.value?.last() == '='))
             onClear()
         if (display.value == "0") {
             display.value = ""
         }
+
         display.value = (display.value ?: "") + digit
     }
 
@@ -31,7 +33,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun isError(): Boolean {
-        return display.value == "Error" || display.value == "Nan"
+        return display.value == "Error" || display.value == "NaN"
     }
 
     fun onOperatorPressed(operator: Char) {
@@ -75,10 +77,3 @@ class CalculatorViewModel : ViewModel() {
     }
 }
 
-fun Double.toNumString():String{
-    return if(this.toInt().toDouble() == this){
-        this.toInt().toString();
-    }else{
-        this.toString();
-    }
-}

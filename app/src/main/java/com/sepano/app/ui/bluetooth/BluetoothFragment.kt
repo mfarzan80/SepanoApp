@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sepano.app.MainActivity
@@ -147,8 +145,7 @@ class BluetoothFragment() : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        this.context = context as MainActivity
+        this.context = context
     }
 
     private fun permissionErrorState() {
@@ -170,7 +167,7 @@ class BluetoothFragment() : Fragment() {
         binding.llPermissionErrorContainer.visibility = View.GONE
         binding.llBluetoothOffContainer.visibility = View.VISIBLE
         binding.tvBluetoothOffTitle.setText(R.string.bluetooth_not_support_title)
-        binding.tvBluetoothOffText.setText(R.string.bluetooth_not_support_title)
+        binding.tvBluetoothOffText.setText(R.string.bluetooth_not_support_text)
         binding.btnTurnOnBluetooth.visibility = View.GONE
         binding.nsvScannedDevices.visibility = View.GONE
     }

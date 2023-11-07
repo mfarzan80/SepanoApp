@@ -18,8 +18,8 @@
 		tools:layout="@layout/fragment_calculator" />
 
 	<fragment
-		android:id="@+id/navigation_memory"
-		android:name="com.sepano.app.ui.memory.MemoryFragment"
-		android:label="@string/title_memory"
-		tools:layout="@layout/fragment_memory" />
+		android:id="@+id/navigation_phone"
+		android:name="com.sepano.app.ui.memory.PhoneFragment"
+		android:label="@string/title_phone"
+		tools:layout="@layout/fragment_phone" />
 </navigation>

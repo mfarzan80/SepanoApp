@@ -12,8 +12,8 @@
 		android:title="@string/title_calculator" />
 
 	<item
-		android:id="@+id/navigation_memory"
-		android:icon="@drawable/selector_memory"
-		android:title="@string/title_memory" />
+		android:id="@+id/navigation_phone"
+		android:icon="@drawable/selector_phone"
+		android:title="@string/title_phone" />
 
 </menu>

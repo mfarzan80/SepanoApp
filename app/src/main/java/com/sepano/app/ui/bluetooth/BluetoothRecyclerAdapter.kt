@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sepano.app.R
-import com.sepano.app.databinding.BluetoothDeviceViewHolderBinding
+import com.sepano.app.databinding.ViewHolderBluetoothDeviceBinding
 import com.sepano.app.model.BluetoothData
 
 //recycler adapter
 class BluetoothRecyclerAdapter(private var deviceList: List<BluetoothData>) :
     RecyclerView.Adapter<BluetoothRecyclerAdapter.ViewHolder>() {
 
-    class ViewHolder(binding: BluetoothDeviceViewHolderBinding) :
+    class ViewHolder(binding: ViewHolderBluetoothDeviceBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = BluetoothDeviceViewHolderBinding
+        val binding = ViewHolderBluetoothDeviceBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
@@ -24,7 +24,7 @@ class BluetoothRecyclerAdapter(private var deviceList: List<BluetoothData>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(deviceList[position]) {
-                BluetoothDeviceViewHolderBinding.bind(itemView).apply {
+                ViewHolderBluetoothDeviceBinding.bind(itemView).apply {
                     tvDeviceName.text = name
                     ivDeviceIcon.setImageResource(getDrawableIdByBluetoothClass(btClass))
                 }
@@ -40,7 +40,7 @@ class BluetoothRecyclerAdapter(private var deviceList: List<BluetoothData>) :
             BluetoothClass.Device.Major.HEALTH -> R.drawable.ic_heart
             BluetoothClass.Device.Major.IMAGING -> R.drawable.ic_camera
             BluetoothClass.Device.Major.NETWORKING -> R.drawable.ic_global
-            BluetoothClass.Device.Major.PHONE -> R.drawable.ic_mobile
+            BluetoothClass.Device.Major.PHONE -> R.drawable.ic_mobile_outline
             BluetoothClass.Device.Major.TOY -> R.drawable.ic_game
             BluetoothClass.Device.Major.WEARABLE -> R.drawable.ic_watch
             BluetoothClass.Device.Major.MISC -> R.drawable.ic_bluetooth

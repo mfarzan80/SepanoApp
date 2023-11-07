@@ -1,6 +1,5 @@
 package com.sepano.app.ui.calculator
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,10 +9,10 @@ import android.widget.GridLayout
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sepano.app.databinding.ClcButtonViewHolderBinding
+import com.sepano.app.databinding.ViewHolderCalculatorButtonBinding
 import com.sepano.app.databinding.FragmentCalculatorBinding
 import com.sepano.app.util.getMaterialColor
-import com.sepano.app.util.setColorAlpha
+import com.sepano.app.util.getScreenWidth
 
 
 class CalculatorFragment : Fragment() {
@@ -24,8 +23,7 @@ class CalculatorFragment : Fragment() {
 
     private var _binding: FragmentCalculatorBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
 
 
@@ -65,7 +63,7 @@ class CalculatorFragment : Fragment() {
             CLEAR_CHAR, '0', '=', '/'
         )
 
-        val screenWidth = resources.displayMetrics.widthPixels
+        val screenWidth = getScreenWidth(context)
         //get dimen
         val btnSize = screenWidth / 5
 
@@ -100,7 +98,7 @@ class CalculatorFragment : Fragment() {
                     onClick = { viewModel.onOperatorPressed(btn)}
                 }
             }
-            val buttonBinding = ClcButtonViewHolderBinding.inflate(layoutInflater)
+            val buttonBinding = ViewHolderCalculatorButtonBinding.inflate(layoutInflater)
             buttonBinding.tvText.text = "$btn"
             buttonBinding.cvButton.setOnClickListener { onClick() }
             buttonBinding.cvButton.layoutParams = GridLayout.LayoutParams(

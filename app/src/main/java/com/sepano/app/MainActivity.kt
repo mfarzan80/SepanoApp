@@ -18,10 +18,8 @@ import com.sepano.app.databinding.ActivityMainBinding
 import com.sepano.app.ui.bluetooth.BluetoothFragment
 import com.sepano.app.ui.bluetooth.BluetoothViewModel
 import com.sepano.app.ui.calculator.CalculatorFragment
-import com.sepano.app.ui.memory.MemoryFragment
+import com.sepano.app.ui.memory.PhoneFragment
 import com.sepano.app.util.getNotGrantedBluetoothPermissions
-import com.sepano.app.util.isAllBluetoothPermissionGranted
-import com.sepano.app.util.isBluetoothOn
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -113,7 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val fragment: Fragment = when (item.itemId) {
             R.id.navigation_bluetooth -> BluetoothFragment()
             R.id.navigation_calculator -> CalculatorFragment()
-            R.id.navigation_memory -> MemoryFragment()
+            R.id.navigation_phone -> PhoneFragment()
             else -> BluetoothFragment()
         }
         displayFragment(fragment)

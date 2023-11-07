@@ -7,8 +7,6 @@ import com.sepano.app.exception.BluetoothException
 import com.sepano.app.ui.ApiViewModel
 import com.sepano.app.util.BluetoothController
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
